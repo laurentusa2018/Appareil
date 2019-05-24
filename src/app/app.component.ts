@@ -8,10 +8,23 @@ import {Component} from '@angular/core';
 export class AppComponent {
   // title = 'Appareil Page 1';
   isAuth = false;
-  appareilOne = 'Machine à laver';
-  appareilTwo = 'Télévision';
-  appareilThree = 'Ordinateur';
-  appareilStatus = 'éteint';
+
+  appareils = [
+    {
+      name: 'Machine à laver',
+      status: 'éteint'
+    },
+    {
+      name: 'Télévision',
+      status: 'éteint'
+    },
+    {
+      name: 'Ordinateur',
+      status: 'allumé'
+    }
+  ];
+
+
 
 
   constructor() {
@@ -25,4 +38,6 @@ export class AppComponent {
   onAllumer() {
     console.log('On allume tout');
   }
+
+
 }
