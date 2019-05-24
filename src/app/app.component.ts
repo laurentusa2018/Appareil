@@ -9,6 +9,18 @@ export class AppComponent {
   // title = 'Appareil Page 1';
   isAuth = false;
 
+ // lastUpdate = new Date();
+lastUpdate = new Promise(
+  (resolve, reject) => {
+    const date = new Date();
+    setTimeout(
+      () => {
+        resolve(date);
+      },2000
+    );
+  }
+);
+
   appareils = [
     {
       name: 'Machine à laver',
