@@ -1,45 +1,32 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AppareilService} from './services/appareil.service';
+import {switchAll} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   // title = 'Appareil Page 1';
   isAuth = false;
 
- // lastUpdate = new Date();
-lastUpdate = new Promise(
-  (resolve, reject) => {
-    const date = new Date();
-    setTimeout(
-      () => {
-        resolve(date);
-      },2000
-    );
-  }
-);
-
-  appareils = [
-    {
-      name: 'Machine à laver',
-      status: 'éteint'
-    },
-    {
-      name: 'Télévision',
-      status: 'éteint'
-    },
-    {
-      name: 'Ordinateur',
-      status: 'allumé'
+  // lastUpdate = new Date();
+  lastUpdate = new Promise(
+    (resolve, reject) => {
+      const date = new Date();
+      setTimeout(
+        () => {
+          resolve(date);
+        }, 2000
+      );
     }
-  ];
+  );
+
+  appareils: any[];
 
 
-
-
-  constructor() {
+  constructor(private appareilService: AppareilService) {
     setTimeout(
       () => {
         this.isAuth = true;
@@ -47,8 +34,17 @@ lastUpdate = new Promise(
     );
   }
 
+  ngOnInit() {
+    this.appareils = this.appareilService.appareils;
+  }
+
+
   onAllumer() {
-    console.log('On allume tout');
+    this.appareilService.switchOnAll();
+  }
+
+  onEteindre(){
+    this.appareilService.switchOffAll();
   }
 
 
