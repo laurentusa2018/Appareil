@@ -1,24 +1,24 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-collapse">
+      <ul class="nav navbar-nav">
+        <!-- pas bon car la page est rechargé à chaque fois
+        <li><a href="auth">Authentification</a></li>
+        <li><a href="appareils">Appareils</a></li> -->
+        <!-- Avce routerLink, plus de rechargement de page, c'est instantané
+        c'est juste le compenent de lapage qui change, le reste de la page ne change pas-->
+        <li routerLinkActive="active"><a routerLink="auth">Authentification</a></li>
+        <!-- active est une classe bootstrap (voir le lien active dans la navbar-->
+        <li routerLinkActive="active"><a routerLink="appareils">Appareils</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
-      <h2>Mes appareils</h2>
-
-      <p>Mis à jour : {{lastUpdate | async | date: 'short'  | lowercase}}</p>
-
-      <ul class="list-group">
-        <app-appareil *ngFor="let appareil of appareils; let i = index"
-                      [indexOfAppareil]="i"
-                      [appareilName]="appareil.name"
-                      [appareilStatus]="appareil.status"></app-appareil>
-      </ul>
-      <button class="btn btn-success"
-              (click)="onAllumer()">Tout Allumer
-      </button>
-      <button class="btn btn-danger"
-              (click)="onEteindre()">Tout Eteindre
-      </button>
-    </div>
+    <!--<app-appareil-view></app-appareil-view>-->
+    <router-outlet></router-outlet>
   </div>
 </div>
 

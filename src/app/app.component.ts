@@ -7,44 +7,10 @@ import {switchAll} from 'rxjs/operators';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   // title = 'Appareil Page 1';
-  isAuth = false;
+  constructor() {
 
-  // lastUpdate = new Date();
-  lastUpdate = new Promise(
-    (resolve, reject) => {
-      const date = new Date();
-      setTimeout(
-        () => {
-          resolve(date);
-        }, 2000
-      );
-    }
-  );
-
-  appareils: any[];
-
-
-  constructor(private appareilService: AppareilService) {
-    setTimeout(
-      () => {
-        this.isAuth = true;
-      }, 4000
-    );
-  }
-
-  ngOnInit() {
-    this.appareils = this.appareilService.appareils;
-  }
-
-
-  onAllumer() {
-    this.appareilService.switchOnAll();
-  }
-
-  onEteindre(){
-    this.appareilService.switchOffAll();
   }
 
 
