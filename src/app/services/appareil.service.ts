@@ -1,18 +1,24 @@
 import {Subject} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {parseHttpResponse} from 'selenium-webdriver/http';
 
+
+@Injectable()
 export class AppareilService {
 
   appareilSubject = new Subject<any[]>();
 
   private appareils = [
     {
+      /*
       id: 1,
       name: 'Machine à laver',
       status: 'éteint'
     },
     {
       id: 2,
-      name: 'Télévision',
+      name: 'Télévision plasme',
       status: 'éteint'
     },
     {
@@ -24,8 +30,13 @@ export class AppareilService {
       id: 4,
       name: 'Réfrigirateur',
       status: 'allumé'
+      
+       */
     }
   ];
+
+  constructor(private httpClient: HttpClient) {
+  }
 
   emitAppareilSubject() {
     this.appareilSubject.next(this.appareils.slice());
@@ -77,6 +88,31 @@ export class AppareilService {
 
     this.appareils.push(appareilObjet);
     this.emitAppareilSubject();
+  }
+
+  saveAppareilsToServer() {
+    this.httpClient.put('https://opcrm-appareils.firebaseio.com/appareils.json', this.appareils)
+      .subscribe(
+        () => {
+          console.log('Enregistrement terminé !');
+        },
+        (error) => {
+          console.log('Erreur de sauvegarde ! ' + error);
+        }
+      );
+  }
+
+  getAppareilFromServer() {
+    this.httpClient.get<any[]>('https://opcrm-appareils.firebaseio.com/appareils.json')
+      .subscribe(
+        (response) => {
+          this.appareils = response;
+          this.emitAppareilSubject();
+        },
+        (error) => {
+          console.log('Erreur de chargement ! ' + error);
+        }
+      );
   }
 
 }
